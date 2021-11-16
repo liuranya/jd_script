@@ -29,8 +29,8 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [], cookie = '', message;
-const linkIds = ["9wdf1YTT2L59Vr-meKskLA", "7ya6o83WSbNhrbYJqsMfFA"];
-const signLinkId = '9WA12jYGulArzWS7vcrwhw';
+const linkIds = [];
+const signLinkId = '';
 let linkId
 
 if ($.isNode()) {
