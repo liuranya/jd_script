@@ -1,8 +1,7 @@
-/*
-*店铺签到，各类店铺签到，有新的店铺直接添加token即可
-*搬运cui521大佬脚本，请勿外传！！！
-*cron 0 0 * * * jd_qpqd_diy.js, tag=店铺签到diy
-*/
+/**
+ * 当脚本内更新cron时，面板不需要删除已有cron，就能同步更新
+ * cron: 0 0-23/2 * * *
+ */
 const $ = new Env('店铺签到');
 
 const notify = $.isNode() ? require('./sendNotify') : '';
