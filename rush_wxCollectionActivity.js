@@ -1,7 +1,6 @@
 /*
-https://lzkj-isv.isvjcloud.com/wxgame/activity/8530275?activityId=
-cron "44 1 * * *" rush_wxCollectionActivity.js
-new Env('加购物车抽奖');
+*cron "44 1 * * *" rush_wxCollectionActivity.js
+*new Env('加购物车抽奖');https://lzkj-isv.isvjcloud.com/wxgame/activity/8530275?activityId=
 */
 const $ = new Env('加购物车抽奖');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
