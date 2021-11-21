@@ -50,8 +50,8 @@ $.shareId = [];
   $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_shareCodes.json'}).then((resp) => {}).catch((e) => console.log('刷新CDN异常', e));
   await $.wait(1000)
   await updateShareCodesCDN('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_shareCodes.json')
-  await $.wait(1000)
-  await getShareCode()
+  //await $.wait(1000)
+  //await getShareCode()
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -83,7 +83,7 @@ $.shareId = [];
     if ($.isNode()) await notify.sendNotify($.name, allMessage);
     $.msg($.name, '', allMessage, {"open-url": "https://blindbox5g.jd.com"})
   }
-  $.shareId = [...($.shareId || []), ...($.updatePkActivityIdRes || []), ...($.zero205Code || [])];
+  $.shareId = [...($.shareId || []), ...($.updatePkActivityIdRes || [])];
   for (let v = 0; v < cookiesArr.length; v++) {
     cookie = cookiesArr[v];
     $.index = v + 1;
