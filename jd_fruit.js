@@ -31,6 +31,7 @@ let cookiesArr = [], cookie = '', jdFruitShareArr = [], isBox = false, notify, n
 //助力好友分享码(最多3个,否则后面的助力失败),原因:京东农场每人每天只有3次助力机会
 //此此内容是IOS用户下载脚本到本地使用，填写互助码的地方，同一京东账号的好友互助码请使用@符号隔开。
 //下面给出两个账号的填写示例（iOS只支持2个京东账号）
+var JD_JOIN_ZLC="false" 
 let shareCodes = []
 let message = '', subTitle = '', option = {}, isFruitFinished = false;
 const retainWater = $.isNode() ? (process.env.retainWater ? process.env.retainWater : 100) : ($.getdata('retainWater') ? $.getdata('retainWater') : 100);//保留水滴大于多少g,默认100g;
@@ -1443,10 +1444,10 @@ function shareCodesFormat() {
       const tempIndex = $.index > shareCodes.length ? (shareCodes.length - 1) : ($.index - 1);
       newShareCodes = shareCodes[tempIndex].split('@');
     }
-    if ($.isNode() && !process.env.FRUITSHARECODES) {
-      console.log(`您未填写助力码变量，优先进行账号内互助，再帮【zero205】助力`);
-      newShareCodes = [...(jdFruitShareArr || []), ...(newShareCodes || [])]
-    }
+    //if ($.isNode() && !process.env.FRUITSHARECODES) {
+    //  console.log(`您未填写助力码变量，优先进行账号内互助，再帮【zero205】助力`);
+    //  newShareCodes = [...(jdFruitShareArr || []), ...(newShareCodes || [])]
+    //}
     if (!ZLC) {
       console.log(`您设置了不加入助力池，跳过\n`)
     } else {
