@@ -46,6 +46,7 @@ const jxOpenUrl = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%2
 let cookiesArr = [], cookie = '', message = '', allMessage = '', jdDreamFactoryShareArr = [], newShareCodes;
 const inviteCodes = [];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+var JD_JOIN_ZLC="false" 
 const ZLC = !(process.env.JD_JOIN_ZLC && process.env.JD_JOIN_ZLC === 'false')
 $.tuanIds = [];
 $.appId = 10001;
@@ -123,7 +124,7 @@ if ($.isNode()) {
             await $.wait(1000);
           }
         }
-        if ($.canHelp) await joinLeaderTuan();//参团
+        //if ($.canHelp) await joinLeaderTuan();//参团
       }
     }
   }
@@ -459,12 +460,12 @@ async function helpFriends() {
   }
   if ($.canHelpFlag) {
     await shareCodesFormat();
-    if ($.isNode() && !process.env.DREAM_FACTORY_SHARE_CODES) {
-      console.log(`您未填写助力码变量，开始账号内互助，再帮【zero205】助力`);
-      $.newShareCode = [...(jdDreamFactoryShareArr || []), ...(newShareCodes || [])]
-    } else {
-      $.newShareCode = newShareCodes
-    }
+    //if ($.isNode() && !process.env.DREAM_FACTORY_SHARE_CODES) {
+    //  console.log(`您未填写助力码变量，开始账号内互助，再帮【zero205】助力`);
+    //  $.newShareCode = [...(jdDreamFactoryShareArr || []), ...(newShareCodes || [])]
+    //} else {
+    //  $.newShareCode = newShareCodes
+    //}
     for (let code of $.newShareCode) {
       if (code) {
         if ($.encryptPin === code) {
