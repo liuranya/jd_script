@@ -1,22 +1,14 @@
 /*
-*cron "44 1 * * *" rush_wxCollectionActivity.js
-*new Env('加购物车抽奖');https://lzkj-isv.isvjcloud.com/wxgame/activity/8530275?activityId=
+https://lzkj-isv.isvjcloud.com/wxgame/activity/8530275?activityId=
 */
 const $ = new Env('加购物车抽奖');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 let cookiesArr = [], cookie = '', message = '';
 let activityIdList = [
-    '4d22b316e58146b4963efcfd3f8435c5',
-    '8b43007f031941b28c60f9a189a162e4',
-    '784dabd0ebef415cb3e6b78c56817a1a',
-    'b2fc22cf0de3441b863bfe49011cfd72',
-    'c3824b8abf17456c9c8283ff2c5a272c',
-    '486b29c49dc34018b10b452348b7e929',
-    '1ac66ba5b742490bb904b4ad690ef9fa',
-    'b18bec7121da406c9ce479ab17f5b51e',
-    'feb560aee629495da986cea82a6391b9',
-    
+    'e19e4296e1404a62afd6e3da2f44adec',
+    'a898cd1be33d4945897d43667c58b7c0',
+    '3b071ff4c2d04dd4a9e56250049835d6',
 ]
 let lz_cookie = {}
 
