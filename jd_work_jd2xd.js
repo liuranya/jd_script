@@ -1,7 +1,6 @@
-/*
-
-cron "10 7 * * *" , tag=京东7天内过期京豆兑换喜豆
-
+/**
+cron=10 7 * * * jd_work_jd2xd.js
+new Env('京东7天内过期京豆兑换喜豆');
  */
 let common = require("./common");
 let $ = new common.env('京东7天内过期京豆兑换喜豆');
