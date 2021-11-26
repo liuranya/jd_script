@@ -1,4 +1,9 @@
-let common = require("./function/common");
+/*
+[task_local]
+#京东7天内过期京豆兑换喜豆
+0 8 * * *  tag=京东7天内过期京豆兑换喜豆, enabled=true
+*/
+let common = require("./common");
 let $ = new common.env('京东7天内过期京豆兑换喜豆');
 let min = 5,
     help = $.config[$.filename(__filename)] || Math.min(min, $.config.JdMain) || min;
