@@ -1,8 +1,8 @@
 /*
-[task_local]
-#京东7天内过期京豆兑换喜豆
-0 8 * * *  tag=京东7天内过期京豆兑换喜豆, enabled=true
-*/
+
+cron "10 7 * * *" , tag=京东7天内过期京豆兑换喜豆
+
+ */
 let common = require("./common");
 let $ = new common.env('京东7天内过期京豆兑换喜豆');
 let min = 5,
