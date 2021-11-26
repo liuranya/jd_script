@@ -1,6 +1,7 @@
-"""
+/**
+cron=0 */6 * * * jd_refreshCK.py
 new Env('青龙全自动更新cookie');
-"""
+ */
 
 import requests
 import time
