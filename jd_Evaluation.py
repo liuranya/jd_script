@@ -1,25 +1,36 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @Time : 2021/10/30 10:58
+# @Time : 2021/11/25 13:58
 # 京东自动评价
+# 新增可选账号评价、更换图片、自动下载sendNotify
 '''
 new Env('京东自动评价');
 cron "33 7 * * *" jd_Evaluation.py
 '''
+
 import os
 import random
 import re
 import sys
 import time
-from urllib.parse import unquote
-from sendNotify import send
-import jieba.analyse
 import requests
+from urllib.parse import unquote
+import jieba.analyse
+
+# 检查是否下载sendNotify.py
+if os.path.exists('sendNotify.py') == False:
+    pwd = os.path.dirname(os.path.abspath(__file__)) + os.sep
+    req = requests.get("https://ghproxy.com/https://raw.githubusercontent.com/gys619/jdd/main/sendNotify.py")
+    with open(pwd + 'sendNotify.py', "wb") as f:
+        f.write(req.content)
+from sendNotify import send
+
+
+# 需要评价的账号,输入 pt_pin 如：NeedEvaluation =  ['vdfd','qq345'] 注意是pt_pin;不填则默认全部评价
+NeedEvaluation = []
 
 jieba.setLogLevel(jieba.logging.INFO)
-
 pwd = os.path.dirname(os.path.abspath(__file__)) + os.sep
-
 
 def printf(text):
     print(text)
@@ -278,9 +289,8 @@ def generation(pname, _class=0, _type=1):
             }
         }
         if _type == 1:
-            # return 5, '东西很好，孩子很喜欢，每天晚上不抱着碎觉，就完全睡不着。买的时候看见评论里都说好就买了，看到发货的时候挺激动的，到了之后，满怀期待一激动得从快递员那里拿回了寝室，试一下，结果挺不错啊！而且客服小姐姐也特别的好，很有礼貌，客服小姐姐也是秒回我的疑问呢，嘻嘻，下次还会回购哒。'
             comments = datas[_type]
-            return random.randint(3, 5), (
+            return 5, (
                     random.choice(comments["开始"]) + random.choice(comments["中间"]) + random.choice(comments["结束"])).replace("$", name)
         elif _type == 0:
             comments = datas[_type]
@@ -326,14 +336,13 @@ def start():
         for i, da in enumerate(op(headers)):
             se_url = f'https://wq.jd.com/eval/SendDSR'
             se_data = {
-                # 'pin': '%E9%82%B1%E5%B8%85%E7%9A%AE%E7%9A%AE%E8%99%BE',
                 'userclient': '29',
                 'orderId': da["oid"],
-                'otype': random.randint(3, 5),
-                'DSR1': random.randint(3, 5),
-                'DSR2': random.randint(3, 5),
-                'DSR3': random.randint(3, 5),
-                'DSR4': random.randint(3, 5),
+                'otype': 5,
+                'DSR1': 5,
+                'DSR2': 5,
+                'DSR3': 5,
+                'DSR4': 5,
                 'g_login_type': '0',
                 'g_ty': 'ls'
             }
@@ -353,7 +362,7 @@ def start():
                 req = requests.post(url, headers=he, data=data)
                 if req.json()['errMsg'] == 'success':
                     #printf("\t普通评价成功！！")
-                    Cent[ce]['评价'] += 1 
+                    Cent[ce]['评价'] += 1
                 else:
                     printf("\t普通评价失败了.......")
                     printf(data)
@@ -362,7 +371,7 @@ def start():
                 se_req = requests.get(se_url, headers=he, params=se_data)
                 if se_req.json()['errMsg'] == 'success':
                     #printf("\t服务评价成功！！")
-                    Cent[ce]['服务评价'] += 1 
+                    Cent[ce]['服务评价'] += 1
                 else:
                     printf("\t服务评价失败了.......")
                     printf(se_data)
@@ -398,12 +407,16 @@ def start():
                     'content': context,
                     'userclient': 29,
                     'imageJson': random.sample(
-                        ['//img30.360buyimg.com/shaidan/jfs/t1/139511/17/26249/850/61852a35Ea7906339/f7eb6b9438917f30.jpg', '//img30.360buyimg.com/shaidan/jfs/t1/143995/15/24443/5327/61860ba4Ecba97817/d7faafa606f76b1f.jpg'], 1)
+                        ['//img10.360buyimg.com/shaidan/s645x515_jfs/t…5601/29741/619f3006Ed48af8cd/e78dc083a1293bdd.jpg', '//img13.360buyimg.com/shaidan/s645x515_jfs/t…5695/69929/619f3007E7a54e586/00a465072aed1485.jpg',
+                        '//img30.360buyimg.com/shaidan/s645x515_jfs/t…1610/83098/619f3007Ee47b830d/978776a0b978eaa9.jpg',
+                        '//img10.360buyimg.com/shaidan/s645x515_jfs/t…7037/54889/619f3007Eefa89588/c2393bbbda622cc5.jpg',
+                        '//img13.360buyimg.com/shaidan/s645x515_jfs/t…1163/40064/619f3007Ea141143d/73250aa354de7786.jpg',
+                        '//img10.360buyimg.com/shaidan/s645x515_jfs/t…1400/65152/619f3008E7f518459/2390d27ee9a3fb61.jpg'], 1)
                 }
                 req = requests.post(url, headers=headers, data=data)
                 if req.json()['data']['result'] != {}:
                     #printf("\t晒单成功！！！")
-                    Cent[ce]['晒单'] += 1 
+                    Cent[ce]['晒单'] += 1
                 else:
                     printf("\t晒单失败...")
                     printf(req.json())
@@ -415,22 +428,22 @@ def start():
     cookiesList, userNameList, pinNameList = getCk.iscookie()
 
     for i,ck,user,pin in zip(range(1,len(cookiesList)+1),cookiesList,userNameList,pinNameList):
-        
-        printf(f"** 开始[账号{i}]-{user} **")
-        headers = {
-            'cookie': ck,
-            'user-agent': 'jdltapp;android;1.0.0;9;860105045422157-bce2658d9db5;network/wifi;model/JKM-AL00a;addressid/0;aid/5d84f5872ec4e5c8;oaid/51fe75e7-7e5d-aefc-fbed-ffffdf7f6bd2;osVer/28;appBuild/694;psn/860105045422157-bce2658d9db5|3;psq/26;uid/860105045422157-bce2658d9db5;adk/;ads/;pap/JA2020_3112531|1.0.0|ANDROID',
-        }
-        Cent[f'账号{i}[{user}]'] = {'评价':0 , '晒单':0, '服务评价':0}
-        printf('开始评价与服务评价！')
-        ordinary(headers, f'账号{i}[{user}]')
-        printf('开始晒单！')
-        sunbw(headers, f'账号{i}[{user}]')
-        printf('完成！！。等待10秒')
-        time.sleep(10)
+        if pin in NeedEvaluation or len(NeedEvaluation) == 0:
+            printf(f"** 开始[账号{i}]-{user} **")
+            headers = {
+                'cookie': ck,
+                'user-agent': 'jdltapp;android;1.0.0;9;860105045422157-bce2658d9db5;network/wifi;model/JKM-AL00a;addressid/0;aid/5d84f5872ec4e5c8;oaid/51fe75e7-7e5d-aefc-fbed-ffffdf7f6bd2;osVer/28;appBuild/694;psn/860105045422157-bce2658d9db5|3;psq/26;uid/860105045422157-bce2658d9db5;adk/;ads/;pap/JA2020_3112531|1.0.0|ANDROID',
+            }
+            Cent[f'账号{i}[{user}]'] = {'评价':0 , '晒单':0, '服务评价':0}
+            printf('开始评价与服务评价！')
+            ordinary(headers, f'账号{i}[{user}]')
+            printf('开始晒单！')
+            sunbw(headers, f'账号{i}[{user}]')
+            printf('完成！！。等待10秒')
+            time.sleep(10)
     msg = ''
     for i in Cent:
-        msg += f'{i}\n{Cent[i]}\n\n' 
+        msg += f'{i}\n{Cent[i]}\n\n'
     send('京东全自动评价',msg)
 
 
