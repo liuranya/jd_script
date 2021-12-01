@@ -4,7 +4,7 @@
 # 京东自动评价
 '''
 new Env('京东自动评价');
-cron=0 0 8 ? * WED  python3 jd_Evaluation.py
+cron: 18 8 1 * * jd_Evaluation.py
 '''
 import os
 import random
