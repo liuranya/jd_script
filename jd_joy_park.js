@@ -25,7 +25,6 @@ cron "20 0-23/3 * * *" script-path=jd_joypark_joy.js,tag=汪汪乐园养joy
 ============小火箭=========
 汪汪乐园养joy = type=cron,script-path=jd_joypark_joy.js, cronexpr="20 0-23/3 * * *", timeout=3600, enable=true
 */
-const HELP_JOYPARK = false;
 const $ = new Env('汪汪乐园养joy');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
@@ -83,27 +82,6 @@ message = ""
         continue
       }
       console.log(`\n\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
-      if ($.isNode()) {
-        if (process.env.HELP_JOYPARK && process.env.HELP_JOYPARK == "false") {
-        } else {
-          await getShareCode()
-          if ($.kgw_invitePin && $.kgw_invitePin.length) {
-            $.log("开始帮【zero205】助力开工位\n");
-            $.kgw_invitePin = [...($.kgw_invitePin || [])][Math.floor((Math.random() * $.kgw_invitePin.length))];
-            let resp = await getJoyBaseInfo(undefined, 2, $.kgw_invitePin);
-            if (resp.helpState && resp.helpState === 1) {
-              $.log("帮【zero205】开工位成功，感谢！\n");
-            } else if (resp.helpState && resp.helpState === 3) {
-              $.log("你不是新用户！跳过开工位助力\n");
-            } else if (resp.helpState && resp.helpState === 2) {
-              $.log(`他的工位已全部开完啦！\n`);
-            } else {
-              $.log("开工位失败！\n");
-              console.log(`${JSON.stringify(resp)}`)
-            }
-          }
-        }
-      }
       //下地后还有有钱买Joy并且买了Joy
       $.hasJoyCoin = true
       await getJoyBaseInfo(undefined, undefined, undefined, true);
