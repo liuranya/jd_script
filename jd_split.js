@@ -69,15 +69,15 @@ $.shareCodes = [];
     cookie = cookiesArr[i];
     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
     $.canHelp = true;
-    if ($.newShareCodes && $.newShareCodes.length) {
+    if ($.shareCodes && $.shareCodes.length) {
       console.log(`\n开始互助\n`);
-      for (let j = 0; j < $.newShareCodes.length && $.canHelp; j++) {
-        console.log(`账号${$.UserName} 去助力 ${$.newShareCodes[j]}`)
+      for (let j = 0; j < $.shareCodes.length && $.canHelp; j++) {
+        console.log(`账号${$.UserName} 去助力 ${$.shareCodes[j]}`)
         $.delcode = false;
-        await jdsplit_collectScore($.newShareCodes[j], 6, null)
+        await jdsplit_collectScore($.shareCodes[j], 6, null)
         await $.wait(2000)
         if ($.delcode) {
-          $.newShareCodes.splice(j, 1)
+          $.shareCodes.splice(j, 1)
           j--
           continue
         }
