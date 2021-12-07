@@ -91,21 +91,21 @@ if ($.isNode()) {
       await $.wait(2000);
     }
   }
-
+  await shareCodesFormat()
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
     $.canHelp = true
     UA = UAInfo[$.UserName]
-    if ($.shareCodes && $.shareCodes.length) {
+    if ($.newShareCodes && $.newShareCodes.length) {
       console.log(`\n开始互助\n`);
-      for (let j = 0; j < $.shareCodes.length && $.canHelp; j++) {
-        console.log(`账号${$.UserName} 去助力 ${$.shareCodes[j]}`)
+      for (let j = 0; j < $.newShareCodes.length && $.canHelp; j++) {
+        console.log(`账号${$.UserName} 去助力 ${$.newShareCodes[j]}`)
         $.delcode = false
-        await helpByStage($.shareCodes[j])
+        await helpByStage($.newShareCodes[j])
         await $.wait(2000)
         if ($.delcode) {
-          $.shareCodes.splice(j, 1)
+          $.newShareCodes.splice(j, 1)
           j--
           continue
         }
@@ -1145,7 +1145,7 @@ function getUserInfo(showInvite = true) {
             console.log(`财富岛好友互助码每次运行都变化,旧的当天有效`);
             console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${strMyShareId}`);
             $.shareCodes.push(strMyShareId)
-            //await uploadShareCode(strMyShareId)
+            await uploadShareCode(strMyShareId)
           }
           $.info = {
             ...$.info,
@@ -1596,6 +1596,18 @@ function uploadShareCode(code) {
     })
     await $.wait(30 * 1000);
     resolve()
+  })
+}
+//格式化助力码
+function shareCodesFormat() {
+  return new Promise(async resolve => {
+    $.newShareCodes = []
+    const readShareCodeRes = await readShareCode();
+    if (readShareCodeRes && readShareCodeRes.code === 200) {
+      $.newShareCodes = [...new Set([...$.shareCodes,  ...(readShareCodeRes.data || [])])];
+    } 
+    console.log(`您将要助力的好友${JSON.stringify($.newShareCodes)}`)
+    resolve();
   })
 }
 

@@ -48,7 +48,7 @@ $.shareId = [];
       '活动时间：2021-8-2到2021-10-29\n' +
       '更新时间：2021-8-8 19:00');
   //$.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_shareCodes.json'}).then((resp) => {}).catch((e) => console.log('刷新CDN异常', e));
- // await $.wait(1000)
+  //await $.wait(1000)
   //await updateShareCodesCDN('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_shareCodes.json')
   //await $.wait(1000)
   //await getShareCode()
