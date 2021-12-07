@@ -91,33 +91,21 @@ if ($.isNode()) {
       await $.wait(2000);
     }
   }
-  let res = await getAuthorShareCode('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/cfd.json')
-  if (!res) {
-    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/cfd.json'}).then((resp) => {}).catch((e) => console.log('刷新CDN异常', e));
-    await $.wait(1000)
-    res = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/cfd.json')
-  }
-  let res2 = await getAuthorShareCode('https://raw.githubusercontent.com/zero205/updateTeam/main/shareCodes/cfd.json')
-  if (!res2) {
-    await $.wait(1000)
-    res2 = await getAuthorShareCode('https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/cfd.json')
-  }
-  $.strMyShareIds = [...(res && res.shareId || []), ...(res2 || [])]
-  await shareCodesFormat()
+
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
     $.canHelp = true
     UA = UAInfo[$.UserName]
-    if ($.newShareCodes && $.newShareCodes.length) {
+    if ($.shareCodes && $.shareCodes.length) {
       console.log(`\n开始互助\n`);
-      for (let j = 0; j < $.newShareCodes.length && $.canHelp; j++) {
-        console.log(`账号${$.UserName} 去助力 ${$.newShareCodes[j]}`)
+      for (let j = 0; j < $.shareCodes.length && $.canHelp; j++) {
+        console.log(`账号${$.UserName} 去助力 ${$.shareCodes[j]}`)
         $.delcode = false
-        await helpByStage($.newShareCodes[j])
+        await helpByStage($.shareCodes[j])
         await $.wait(2000)
         if ($.delcode) {
-          $.newShareCodes.splice(j, 1)
+          $.shareCodes.splice(j, 1)
           j--
           continue
         }
@@ -1157,7 +1145,7 @@ function getUserInfo(showInvite = true) {
             console.log(`财富岛好友互助码每次运行都变化,旧的当天有效`);
             console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${strMyShareId}`);
             $.shareCodes.push(strMyShareId)
-            await uploadShareCode(strMyShareId)
+            //await uploadShareCode(strMyShareId)
           }
           $.info = {
             ...$.info,
@@ -1608,20 +1596,6 @@ function uploadShareCode(code) {
     })
     await $.wait(30 * 1000);
     resolve()
-  })
-}
-//格式化助力码
-function shareCodesFormat() {
-  return new Promise(async resolve => {
-    $.newShareCodes = []
-    const readShareCodeRes = await readShareCode();
-    if (readShareCodeRes && readShareCodeRes.code === 200) {
-      $.newShareCodes = [...new Set([...$.shareCodes, ...$.strMyShareIds, ...(readShareCodeRes.data || [])])];
-    } else {
-      $.newShareCodes = [...new Set([...$.shareCodes, ...$.strMyShareIds])];
-    }
-    console.log(`您将要助力的好友${JSON.stringify($.newShareCodes)}`)
-    resolve();
   })
 }
 
