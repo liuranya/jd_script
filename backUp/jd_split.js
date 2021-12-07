@@ -65,17 +65,6 @@ $.shareCodes = [];
       await jdSplit()
     }
   }
-  let res = await getAuthorShareCode('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/split.json')
-  if (!res) {
-    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/split.json'}).then((resp) => {}).catch((e) => console.log('刷新CDN异常', e));
-    await $.wait(1000)
-    res = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/split.json')
-  }
-  let res2 = await getAuthorShareCode('https://raw.githubusercontent.com/zero205/updateTeam/main/shareCodes/split.json')
-  if (!res2) {
-    res2 = await getAuthorShareCode('ttps://raw.fastgit.org/zero205/updateTeam/main/shareCodes/split.json')
-  }
-  $.newShareCodes = [...new Set([...$.shareCodes, ...(res || []), ...(res2 || [])])]
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
