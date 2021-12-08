@@ -91,7 +91,6 @@ if ($.isNode()) {
       await $.wait(2000);
     }
   }
-  //await shareCodesFormat()
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
@@ -1604,8 +1603,10 @@ function shareCodesFormat() {
     $.newShareCodes = []
     const readShareCodeRes = await readShareCode();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
-      $.newShareCodes = [...new Set([...$.shareCodes,  ...(readShareCodeRes.data || [])])];
-    } 
+      $.newShareCodes = [...new Set([...$.shareCodes, ...$.strMyShareIds, ...(readShareCodeRes.data || [])])];
+    } else {
+      $.newShareCodes = [...new Set([...$.shareCodes, ...$.strMyShareIds])];
+    }
     console.log(`您将要助力的好友${JSON.stringify($.newShareCodes)}`)
     resolve();
   })
