@@ -91,21 +91,21 @@ if ($.isNode()) {
       await $.wait(2000);
     }
   }
-  await shareCodesFormat()
+  //await shareCodesFormat()
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
     $.canHelp = true
     UA = UAInfo[$.UserName]
-    if ($.newShareCodes && $.newShareCodes.length) {
+    if ($.ShareCodes && $.ShareCodes.length) {
       console.log(`\n开始互助\n`);
-      for (let j = 0; j < $.newShareCodes.length && $.canHelp; j++) {
-        console.log(`账号${$.UserName} 去助力 ${$.newShareCodes[j]}`)
+      for (let j = 0; j < $.ShareCodes.length && $.canHelp; j++) {
+        console.log(`账号${$.UserName} 去助力 ${$.ShareCodes[j]}`)
         $.delcode = false
-        await helpByStage($.newShareCodes[j])
+        await helpByStage($.ShareCodes[j])
         await $.wait(2000)
         if ($.delcode) {
-          $.newShareCodes.splice(j, 1)
+          $.ShareCodes.splice(j, 1)
           j--
           continue
         }
