@@ -1,5 +1,4 @@
 {
-    "jd_super_redrain": 3,
     "jd_fruit":[6, 12 ,18],
     "jx_sign": [8, 13],
     "jd_bean_sign": [0],
@@ -51,7 +50,6 @@
     "jd_zjb": [7],
     "jd_car": [7],
     "jd_ddworld": [9, 19],
-    "jd_xiaolong": [10],
     "jd_zsign":[10],
     "jd_genz":[13],
     "jd_jmf": [9,21],
@@ -60,6 +58,7 @@
     "jd_jump":[3, 21],
     "jd_nnfls": [10,20],
     "jd_fanli": [10],
+    "jd_sxLottery": [10],
     "jd_lxLottery": [10],
     "jd_mofang_ex": [10],
     "jd_gold_sign": [9],
