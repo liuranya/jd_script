@@ -105,7 +105,7 @@ if ($.isNode()) {
     await $.wait(1000)
     res2 = await getAuthorShareCode('https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/cfd.json')
   }
-  //$.strMyShareIds = [...(res && res.shareId || []), ...(res2 || [])]
+  $.strMyShareIds = [...(res && res.shareId || []), ...(res2 || [])]
   await shareCodesFormat()
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
