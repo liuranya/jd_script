@@ -100,8 +100,8 @@ async function jsRedPacket() {
 
 function invite2() {
   let inviterId = [
-    "/eNHdfn6fP+TFwVda3ipjWwvTFqeKBZaRG38adWABKk=",
-    "Sev6JWjut6GyaEHJIWpSQQ=="
+    "",
+    ""
   ][Math.floor((Math.random() * 2))]
   let headers = {
     'Host': 'api.m.jd.com',
