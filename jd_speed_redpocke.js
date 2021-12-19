@@ -29,8 +29,8 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [], cookie = '', message;
-const linkIds = [];
-const signLinkId = '';
+const linkIds = ["7ya6o83WSbNhrbYJqsMfFA"];
+const signLinkId = '9WA12jYGulArzWS7vcrwhw';
 let linkId
 
 if ($.isNode()) {
@@ -100,8 +100,8 @@ async function jsRedPacket() {
 
 function invite2() {
   let inviterId = [
-    "",
-    ""
+    "/eNHdfn6fP+TFwVda3ipjWwvTFqeKBZaRG38adWABKk=",
+    "Sev6JWjut6GyaEHJIWpSQQ=="
   ][Math.floor((Math.random() * 2))]
   let headers = {
     'Host': 'api.m.jd.com',
