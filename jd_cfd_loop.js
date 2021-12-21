@@ -168,7 +168,7 @@ async function queryshell() {
             let vo = data.Data.NormShell[key]
             for (let j = 0; j < vo.dwNum && $.canpick; j++) {
               await pickshell(`dwType=${vo.dwType}`)
-              await $.wait(3000)
+              await $.wait(8000)
             }
             if (!$.canpick) break
           }
