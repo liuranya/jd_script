@@ -115,7 +115,7 @@ async function querystorageroom() {
                 strTypeCnt += `${bags[j]}|`
               }
             }
-            await $.wait(3000)
+            await $.wait(5000)
             await sellgoods(`strTypeCnt=${strTypeCnt}&dwSceneId=1`)
           } else {
             console.log(`背包是空的，快去捡贝壳吧\n`)
@@ -168,7 +168,7 @@ async function queryshell() {
             let vo = data.Data.NormShell[key]
             for (let j = 0; j < vo.dwNum && $.canpick; j++) {
               await pickshell(`dwType=${vo.dwType}`)
-              await $.wait(3000)
+              await $.wait(9000)
             }
             if (!$.canpick) break
           }

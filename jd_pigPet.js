@@ -1,4 +1,4 @@
-﻿/*
+/*
 *
 京东金融养猪猪
 活动入口：京东金融养猪猪，
@@ -28,7 +28,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let UA = $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
-let shareId = ''
+let shareId = 'KNkRvH7s7yGZBZqoKrOGUsAdoUJQ3Dik'
 $.shareCodes = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -77,12 +77,12 @@ if ($.isNode()) {
     }
   }
   console.log(`\n======开始大转盘助力======\n`);
-  $.helpId = await getAuthorShareCode('https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/pig.json');
+  //$.helpId = await getAuthorShareCode('https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/pig.json');
   $.shareCodes = [...$.shareCodes, ...($.helpId || [])]
   for (let j = 0; j < cookiesArr.length; j++) {
     cookie = cookiesArr[j];
     if ($.shareCodes && $.shareCodes.length) {
-      console.log(`\n自己账号内部循环互助，有剩余次数再帮【zero205】助力\n`);
+      //console.log(`\n自己账号内部循环互助，有剩余次数再帮【zero205】助力\n`);
       for (let item of $.shareCodes) {
         await pigPetLotteryHelpFriend(item)
         await $.wait(1000)
@@ -881,6 +881,18 @@ function getAuthorShareCode(url) {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }
     };
+    if ($.isNode() && process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT) {
+      const tunnel = require("tunnel");
+      const agent = {
+        https: tunnel.httpsOverHttp({
+          proxy: {
+            host: process.env.TG_PROXY_HOST,
+            port: process.env.TG_PROXY_PORT * 1
+          }
+        })
+      }
+      Object.assign(options, { agent })
+    }
     $.get(options, async (err, resp, data) => {
       try {
         resolve(JSON.parse(data))
