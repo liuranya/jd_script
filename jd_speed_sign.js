@@ -732,7 +732,6 @@ function taskGetUrl(function_id, body) {
     }
   }
 }
-
 function TotalBean() {
   return new Promise(async resolve => {
     const options = {
