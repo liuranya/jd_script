@@ -1,6 +1,23 @@
 /*
-东东健康社区内部互助
-cron "13 1,6,22 * * *" tag=东东健康社区内部互助
+东东健康社区
+更新时间：2021-4-22
+活动入口：京东APP首页搜索 "玩一玩"即可
+
+脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
+===================quantumultx================
+[task_local]
+#东东健康社区
+5 4,14 * * * https://raw.githubusercontent.com/KingRan/JDJB/main/jd_health_help.js, tag=东东健康社区, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+
+=====================Loon================
+[Script]
+cron "5 4,14 * * *" script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_health_help.js, tag=东东健康社区
+
+====================Surge================
+东东健康社区 = type=cron,cronexp="5 4,14 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_health_help.js
+
+============小火箭=========
+东东健康社区 = type=cron,script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_health_help.js, cronexpr="5 4,14 * * *", timeout=3600, enable=true
  */
 const $ = new Env("东东健康社区内部互助");
 const jdCookieNode = $.isNode() ? require("./jdCookie.js") : "";
