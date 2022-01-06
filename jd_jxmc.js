@@ -908,8 +908,8 @@ function shareCodesFormat() {
     $.newShareCodes = []
     const readShareCodeRes = await readShareCode();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
-      $.newShareCodes = [...new Set([...$.inviteCodeList, ...($.res || []), ...(readShareCodeRes.data || [])])];
-    } else {
+      //$.newShareCodes = [...new Set([...$.inviteCodeList, ...($.res || []), ...(readShareCodeRes.data || [])])];
+    //} else {
       $.newShareCodes = [...new Set([...$.inviteCodeList, ...($.res || [])])];
     }
     console.log(`\n您将要助力的好友${JSON.stringify($.newShareCodes)}`)
