@@ -1,6 +1,7 @@
 /*
 城城领现金
 
+暂无池子，忽略池子信息
 首个帐号助力作者池子在最后
 其余帐号优先向前内部互助
 有助力码环境变量则助力码在最前
@@ -308,7 +309,7 @@ function shareCodesFormat() {
     // }
     if ($.index == 1) {
       console.log('首个帐号,助力作者和池子')
-      $.newShareCodes = [...new Set([...author_codes,...pool,...$.newShareCodes])]
+      $.newShareCodes = [...new Set([...author_codes,...$.newShareCodes])]
     } else{
       // console.log('非首个帐号,助力池子')
       // $.newShareCodes = [...new Set([...$.newShareCodes,...pool])]
