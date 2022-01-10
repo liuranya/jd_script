@@ -41,7 +41,7 @@ if ($.isNode()) {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
-let author_codes = ['57yPD9FLHxIDClCXLISJu-z6xwEJIg','-ryUXqkPZGRKY0fMT9vA_7oFrIoocRnN','oe37W64MY2ZAYhCrCpeJ91Jy3zmL'].sort(() => 0.5 - Math.random())
+let author_codes = [].sort(() => 0.5 - Math.random())
 const self_code = []
 let pool = []
 !(async () => {
@@ -60,11 +60,10 @@ let pool = []
   } else {
     console.log(`脚本不会自动抽奖，设置JD_CITY_EXCHANGE为true，默认关闭`)
   }
-  // if (process.env.CT_R != 'false') {
-  //   cookiesArr = cookiesArr.sort(() => 0.5 - Math.random())
-  //   console.log('CK顺序打乱!用来随机内部互助!,如需关闭CT_R为false')
-  // }
-  console.log('明日可能默认开启CK打乱（随机内部互助）,如需关闭请提前设置CT_R为false')
+  if (process.env.CT_R != 'false') {
+    cookiesArr = cookiesArr.sort(() => 0.5 - Math.random())
+    console.log('CK顺序打乱!用来随机内部互助!,如需关闭CT_R为false')
+  }
   let res = await getAuthorShareCode('https://raw.githubusercontent.com/zero205/updateTeam/main/shareCodes/city.json')
   if (!res) {
     res = await getAuthorShareCode('https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/city.json')
