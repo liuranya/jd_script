@@ -4,6 +4,7 @@ https://yearfestival.jd.com
 优先内部互助,剩余次数助力作者和助力池
 0 0,12,18 * * * jd_tiger.js
 转义自HW大佬
+const $ = new Env('萌虎摇摇乐');
 */
 const name = '萌虎摇摇乐'
 let UA = process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)
@@ -105,11 +106,11 @@ Object.keys(jdCookieNode).forEach((item) => {
         }
     }
     for (let i = 0; i < cookiesArr.length; i++) {
-        ccookie = cookiesArr[i]
+        cookie = cookiesArr[i]
         const userName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
         console.log(`\n开始【京东账号${i + 1}】${userName}\n`)
 
-        const res = await api({ "apiMapping": "/api/index/indexInfo" })
+        let res = await api({ "apiMapping": "/api/index/indexInfo" })
         let lotteryNum = res.data.lotteryNum
         for (let i = 0; i < lotteryNum; i++) {
             res = await api({ "apiMapping": "/api/lottery/lottery" })
